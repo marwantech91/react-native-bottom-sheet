@@ -33,6 +33,7 @@ export interface BottomSheetRef {
   expand: () => void;
   collapse: () => void;
   close: () => void;
+  isOpen: () => boolean;
 }
 
 // === Component ===
@@ -138,6 +139,7 @@ export const BottomSheet = forwardRef<BottomSheetRef, BottomSheetProps>(
       expand: () => snapTo(resolvedSnapPoints.length - 1),
       collapse: () => snapTo(0),
       close: () => snapTo(-1),
+      isOpen: () => currentIndex.value >= 0,
     }));
 
     // Back handler for Android
