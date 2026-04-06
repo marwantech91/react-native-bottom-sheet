@@ -229,4 +229,26 @@ const styles = StyleSheet.create({
   },
 });
 
+/** Calculate the nearest snap point index for a given height */
+export function findNearestSnapIndex(snapPoints: number[], currentHeight: number): number {
+  let nearest = 0;
+  let minDist = Math.abs(snapPoints[0] - currentHeight);
+
+  for (let i = 1; i < snapPoints.length; i++) {
+    const dist = Math.abs(snapPoints[i] - currentHeight);
+    if (dist < minDist) {
+      minDist = dist;
+      nearest = i;
+    }
+  }
+
+  return nearest;
+}
+
+/** Convert percentage snap points to pixel values based on screen height */
+export function percentToPixelSnapPoints(percentages: number[], screenHeight?: number): number[] {
+  const height = screenHeight || Dimensions.get('window').height;
+  return percentages.map((pct) => Math.round((pct / 100) * height));
+}
+
 export default BottomSheet;
